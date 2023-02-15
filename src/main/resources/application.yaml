@@ -1,0 +1,37 @@
+server:
+  port: 9003
+  servlet:
+    context-path: /vue
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3307/vue?serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  redis:
+    database: 1
+    host: 127.0.0.1
+    port: 6379
+    max-wait: 30000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+    max-active: 100 # 连接池最大连接数（使用负值表示没有限制）
+    max-idle: 20    # 连接池中的最大空闲连接
+    min-idle: 0     # 连接池中的最小空闲连接
+    timeout: 5000   # 连接超时
+
+token:
+  expire-time: 3600 # token 过期时间，单位：秒
+  secret-key: TokenSecretKey
+
+swagger:
+  enable: true
+
+# 不加入 spring-security 管理的 path
+## 排除 swagger：/swagger-resources/**,/swagger-ui.html,/v2/api-docs,/webjars/**
+security:
+  ex-path: /user/login,/user/register,/swagger-resources/**,/swagger-ui.html,/v2/api-docs,/webjars/**
