@@ -1,6 +1,6 @@
 package com.tr.vue.common.advice;
 
-import com.tr.vue.common.exception.MyException;
+import com.tr.vue.common.exception.BusinessException;
 import com.tr.vue.common.result.Result;
 import com.tr.vue.common.result.ResultEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * Controller 统一异常处理
+ * 统一异常处理
  *
  * @author TR
  * @date 2022/6/25 上午8:56
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerExceptionAdvice {
 
-    @ExceptionHandler(MyException.class)
-    public Result handle(MyException myException) {
-        return Result.fail(myException.getCode(), myException.getMessage());
+    @ExceptionHandler(BusinessException.class)
+    public Result handle(BusinessException businessException) {
+        return Result.fail(businessException.getCode(), businessException.getMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)

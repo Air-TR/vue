@@ -11,8 +11,9 @@ import java.util.Date;
 public class Test {
 
     public static void main(String[] args) {
-        System.out.println(new Date());
-        System.out.println(new Date(3600));
+        System.out.println(System.currentTimeMillis());
+        System.out.println(new Date(1510732255));
+//        System.out.println(new Date(3600));
     }
 
 }

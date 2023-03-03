@@ -1,6 +1,6 @@
 package com.tr.vue.util;
 
-import com.tr.vue.common.exception.MyException;
+import com.tr.vue.common.exception.BusinessException;
 import com.tr.vue.config.properties.TokenProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
@@ -128,7 +128,7 @@ public class JwtUtil {
             return username;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new MyException("无效 token");
+            throw new BusinessException("无效 token");
         }
     }
 

@@ -1,5 +1,6 @@
 package com.tr.vue.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.tr.vue.config.properties.TokenProperties;
 import com.tr.vue.constant.RedisKey;
 import com.tr.vue.entity.User;
@@ -37,10 +38,14 @@ public class LoginAndOutServiceImpl implements LoginAndOutService {
         if (Objects.isNull(authenticate)) {
             throw new RuntimeException("用户名或密码错误");
         }
+        // 获取 userDetail
+        org.springframework.security.core.userdetails.User userDetail = (org.springframework.security.core.userdetails.User) authenticate.getPrincipal();
         // 使用 username 生成 token（如要用 user_id 生成，根据 username 去获取 user_id）
-        String token = JwtUtil.createJWT(user.getUsername());
+        String token = JwtUtil.createJWT(userDetail.getUsername());
         // token 存入 redis
-        stringRedisTemplate.opsForValue().set(RedisKey.TOKEN + user.getUsername(), token, tokenProperties.getExpireTime(), TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(RedisKey.TOKEN + userDetail.getUsername(), token, 3600, TimeUnit.SECONDS);
+        // authorities 存入 redis
+        stringRedisTemplate.opsForValue().set(RedisKey.AUTHORITIES + userDetail.getUsername(), JSON.toJSONString(userDetail.getAuthorities()), 3600, TimeUnit.SECONDS);
         return token;
     }
 

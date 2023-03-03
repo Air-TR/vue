@@ -1,6 +1,6 @@
 package com.tr.vue.service.impl;
 
-import com.tr.vue.common.exception.MyException;
+import com.tr.vue.common.exception.BusinessException;
 import com.tr.vue.entity.User;
 import com.tr.vue.jpa.UserRepository;
 import com.tr.vue.service.UserService;
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() -> new MyException("用户不存在"));
+        return userRepository.findByUsername(username).orElseThrow(() -> new BusinessException("用户不存在"));
     }
 
     @Override

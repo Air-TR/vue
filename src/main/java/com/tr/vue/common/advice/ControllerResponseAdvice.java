@@ -3,7 +3,7 @@ package com.tr.vue.common.advice;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tr.vue.common.annotation.NotControllerResponseAdvice;
-import com.tr.vue.common.exception.MyException;
+import com.tr.vue.common.exception.BusinessException;
 import com.tr.vue.common.result.Result;
 import com.tr.vue.common.result.ResultEnum;
 import org.springframework.core.MethodParameter;
@@ -39,7 +39,7 @@ public class ControllerResponseAdvice implements ResponseBodyAdvice<Object> {
                 // 将数据包装在 Result 里后转换为 json 串进行返回
                 return objectMapper.writeValueAsString(Result.success(data));
             } catch (JsonProcessingException e) {
-                throw new MyException(ResultEnum.RESPONSE_PACK_ERROR, e);
+                throw new BusinessException(ResultEnum.RESPONSE_PACK_ERROR, e);
             }
         }
         // 否则直接包装成 Result 返回
